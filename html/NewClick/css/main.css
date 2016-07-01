@@ -522,6 +522,7 @@ input[type="radio"] {
         display: block;
     }
     .fotter {
+        color: #777;
         padding: 10px;
         padding-top: 20px;
         margin: 0 auto;    position: relative;
@@ -843,14 +844,14 @@ input[type="checkbox"] {
     background: transparent;
     width: 100%;
     min-height: 80px;
-    color: #000;
+    color: #777;
     text-align: center;
     display:block;
     font-family: Arial;
 }
 
 #footer-custom a {
-    color: #000;
+    color: #777;
 }
 
 .fotter {
