@@ -4,47 +4,17 @@ var minifyCss = require('gulp-minify-css');                     //- 压缩CSS为
 var uglify = require('gulp-uglify'); 
 
 gulp.task('extend-output', function () {
-    gulp.src('./html/**/*.*')
+    gulp.src('./html/**/**/*.*')
         .pipe(gulp.dest('./output'))
 })
 
 gulp.task('extend-pro', ['extend-output', 'minify', 'cssMin', 'copyOtherFiles'], function () {})
 
-gulp.task('watch', ['extend-output', 'extend-pro'], function () {
-    gulp.watch(['./output/**/*.html'], ['minify'])
-    gulp.watch(['./html/**/*.html'], ['extend-output'])
-})
-
-gulp.task('default', ['extend-pro'], function () {
-    setTimeout(function () {
-        gulp.src('./output/**/*.html')
-        .pipe(htmlmin({
-            collapseBooleanAttributes:true,
-            collapseWhitespace:true,
-            decodeEntities:true,
-            html5:true,
-            minifyCSS:true,
-            minifyJS:true,
-            processConditionalComments:true,
-            removeAttributeQuotes:true,
-            removeComments:true,
-            removeEmptyAttributes:true,
-            removeOptionalTags:true,
-            removeRedundantAttributes:true,
-            removeScriptTypeAttributes:true,
-            removeStyleLinkTypeAttributes:true,
-            removeTagWhitespace:true,
-            sortAttributes:true,
-            sortClassName:true,
-            useShortDoctype:true
-        }))
-        .pipe(gulp.dest('./production'))
-    }, 400)
-})
+gulp.task('default', ['extend-pro'])
 
 gulp.task('minify', function() {
 	console.log("minify");
-  return gulp.src('./output/**/*.html')
+  return gulp.src('./output/**/**/*.html')
     .pipe(htmlmin({
         collapseBooleanAttributes:true,
         collapseWhitespace:true,
@@ -71,15 +41,7 @@ gulp.task('minify', function() {
 
 gulp.task('cssMin', function() {
     console.log('cssMin');
-	return gulp.src('./output/**/*.css')
-		.pipe(minifyCss())
-    .pipe(gulp.dest('./production'))
-});
-
-
-gulp.task('uglifyJS', function() {
-    console.log('uglifyJS');
-	return gulp.src('./output/**/*.js')
+	return gulp.src('./output/**/**/**/*.css')
 		.pipe(minifyCss())
     .pipe(gulp.dest('./production'))
 });
@@ -88,9 +50,9 @@ gulp.task('uglifyJS', function() {
 gulp.task("copyOtherFiles", function() {
     console.log('copyOtherFiles');
     gulp.src([
-    		'./output/**/*.*', 
-    		'!' + './output/**/*.html',
-			'!' + './output/**/*.css'
+    		'./output/**/**/*.*', 
+    		'!' + './output/**/**/**/*.html',
+			'!' + './output/**/**/**/*.css'
     	])
         .pipe(gulp.dest('./production'))
 })
